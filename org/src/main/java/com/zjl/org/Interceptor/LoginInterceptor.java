@@ -5,6 +5,7 @@ import com.zjl.comp.util.JwtTokenUtils;
 import com.zjl.comp.util.RedisServiceUnit;
 import com.zjl.comp.util.ResultCode;
 import com.zjl.comp.util.SpringUtil;
+import com.zjl.org.bean.SysAnonymous;
 import com.zjl.org.bean.SysUser;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -43,14 +44,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
     }
 
-    //匿名访问清单 --后续加入数据库
+    //匿名访问清单
     private Boolean chackUrl(String url){
+        List<SysAnonymous> lists = (List<SysAnonymous>) SpringUtil.getBean(RedisServiceUnit.class).get("anonymous");
         Boolean flag  = false;
-        List<String> listurls = new ArrayList<>();
-        listurls.add("login");
-        listurls.add("upload");
-        for(String s: listurls){
-            if(url.indexOf(s)>=0) flag = true;
+        for(SysAnonymous s: lists){
+            if(url.indexOf(s.getUrl())>=0) flag = true;
         }
         return flag;
     }

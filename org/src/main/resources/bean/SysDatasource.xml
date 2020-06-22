@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SysDatasource">
+
+    <resultMap id="BaseResultMap" type="com.zjl.org.bean.SysDatasource">
+        <id property="dataSourceId" column="data_source_id" jdbcType="VARCHAR"/>
+        <result property="dataSourceDesc" column="data_source_desc" jdbcType="VARCHAR"/>
+        <result property="connUrl" column="conn_url" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="driverClass" column="driver_class" jdbcType="VARCHAR"/>
+        <result property="minPoolSize" column="min_pool_size" jdbcType="INTEGER"/>
+        <result property="maxPoolSize" column="max_pool_size" jdbcType="INTEGER"/>
+        <result property="initialPoolSize" column="initial_pool_size" jdbcType="INTEGER"/>
+        <result property="dbSchema" column="db_schema" jdbcType="VARCHAR"/>
+        <result property="dbCharSet" column="db_char_set" jdbcType="VARCHAR"/>
+        <result property="jndi" column="jndi" jdbcType="VARCHAR"/>
+        <result property="jndiName" column="jndi_name" jdbcType="VARCHAR"/>
+        <result property="maxWait" column="max_wait" jdbcType="INTEGER"/>
+        <result property="tberm" column="tberm" jdbcType="INTEGER"/>
+        <result property="meitm" column="meitm" jdbcType="INTEGER"/>
+        <result property="testOnBorrow" column="test_on_borrow" jdbcType="INTEGER"/>
+        <result property="testOnReturn" column="test_on_return" jdbcType="INTEGER"/>
+        <result property="poolPreparedStatements" column="pool_prepared_statements" jdbcType="INTEGER"/>
+        <result property="mppspcs" column="mppspcs" jdbcType="INTEGER"/>
+        <result property="filters" column="filters" jdbcType="VARCHAR"/>
+        <result property="timeBetweenLogStatsMillis" column="time_between_log_stats_millis" jdbcType="INTEGER"/>
+        <result property="statLogger" column="stat_logger" jdbcType="VARCHAR"/>
+        <result property="drNum" column="dr_num" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">    data_source_id, data_source_desc, conn_url, user_name, password, driver_class, min_pool_size, max_pool_size, initial_pool_size, db_schema, db_char_set, jndi, jndi_name, max_wait, tberm, meitm, test_on_borrow, test_on_return, pool_prepared_statements, mppspcs, filters, time_between_log_stats_millis, stat_logger, dr_num,  status  </sql>
+
+
+    <select id="queryList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_datasource
+        <where>
+            <if test="dataSourceId !=null">and data_source_id=#{dataSourceId}</if>
+            <if test="dataSourceId1 !=null">and data_source_id=#{dataSourceId1}</if>
+        </where>
+    </select>
+</mapper>

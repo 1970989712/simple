@@ -1,8 +1,13 @@
 package com.zjl.org.config;
+import com.zjl.org.bean.SysDatasource;
+import com.zjl.org.service.SysAnonymousService;
 import com.zjl.org.service.SysCrontaskService;
+import com.zjl.org.service.SysDatasourceService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.util.CollectionUtils;
+
 import javax.annotation.Resource;
 
 /**
@@ -13,17 +18,27 @@ import javax.annotation.Resource;
  * 可以去做一些自己想做的事。其实这也就是spring ioc容器给提供的一个扩展的地方。我们可以这样使用这个扩展机制。
  */
 @Configuration
-public class MySchedulerListener implements ApplicationListener<ContextRefreshedEvent> {
+public class MyListener implements ApplicationListener<ContextRefreshedEvent> {
 
     @Resource
     SysCrontaskService sysScheduler;
 
+    @Resource
+    SysAnonymousService anonymousService;
+
+    // 防止重复执行
+    private static boolean loaded = false;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        try {
-            sysScheduler.schedulerJob();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!loaded) {
+            loaded = true;
+            try {
+                anonymousService.getAllAnonymous(); //匿名访问清单
+                sysScheduler.schedulerJob(); //定时任务加载
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
