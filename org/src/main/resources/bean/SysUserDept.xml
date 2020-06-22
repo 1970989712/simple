@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SysUserDept">
+
+    <resultMap id="BaseResultMap" type="com.zjl.org.bean.SysUserDept">
+        <id property="userDeptId" column="userDeptId" jdbcType="VARCHAR"/>
+        <result property="userId" column="userId" jdbcType="VARCHAR"/>
+        <result property="deptId" column="deptId" jdbcType="VARCHAR"/>
+        <result property="main" column="main" jdbcType="TINYINT"/>
+        <result property="valid" column="valid" jdbcType="TINYINT"/>
+        <result property="timeEnd" column="timeEnd" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+        <result property="createUser" column="createUser" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="updateUser" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">    userDeptId, userId, deptId, main, valid, timeEnd, createTime, createUser, updateTime,  updateUser  </sql>
+
+
+    <select id="queryList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_user_dept
+        <where>
+            <if test="userDeptId !=null">and userDeptId=#{userDeptId}</if>
+            <if test="userDeptId1 !=null">and userDeptId=#{userDeptId1}</if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myBasedao">
+
+
+    <delete id="deletebasebean">
+      delete
+      from ${table}
+      <where>
+          <foreach collection="requst" index="index" item="item">
+              <if test="item.value !=null">${item.key}=#{item.value}</if>
+          </foreach>
+      </where>
+    </delete>
+
+
+    <update id="updatebsaebean">
+      update
+        ${table}
+      <set>
+          <foreach collection="requst" index="index" item="item">
+              <if test="item.value != null">
+                  ${item.key}=#{item.value},
+              </if>
+          </foreach>
+      </set>
+      <where>
+         and ${beanidkey}=#{beanidvalue}
+      </where>
+    </update>
+
+
+    <insert id="insertbasebean">
+        insert into ${table}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach collection="requst" index="index" item="item">
+                <if test="item.value != null">
+                    ${item.key},
+                </if>
+            </foreach>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <foreach collection="requst" index="index" item="item">
+                <if test="item.value != null">
+                    #{item.value},
+                </if>
+            </foreach>
+        </trim>
+    </insert>
+
+
+</mapper>

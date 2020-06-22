@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SysRole">
+
+    <resultMap id="BaseResultMap" type="com.zjl.org.bean.SysRole">
+        <id property="roleId" column="roleId" jdbcType="VARCHAR"/>
+        <result property="roleName" column="roleName" jdbcType="VARCHAR"/>
+        <result property="roleDescription" column="roleDescription" jdbcType="VARCHAR"/>
+        <result property="isUpdate" column="isUpdate" jdbcType="TINYINT"/>
+        <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+        <result property="createUser" column="createUser" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="updateUser" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">    roleId, roleName, roleDescription, isUpdate, createTime, createUser, updateTime,  updateUser  </sql>
+
+
+    <select id="queryList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_role
+        <where>
+            <if test="roleId !=null">and roleId=#{roleId}</if>
+            <if test="roleId1 !=null">and roleId=#{roleId1}</if>
+        </where>
+    </select>
+
+
+    <!--查询当前用户及当前用户所在部门下 所有角色-->
+    <select id="queryAllRoleByUser" resultMap="BaseResultMap">
+        SELECT DISTINCT
+        t1.*
+        FROM
+        `sys_role` t1
+        JOIN sys_user_group_role t2 ON t1.roleId = t2.roleId
+        <where>
+            <if test="userId !=null">and ( t2.userGroupType = "USER" AND t2.userGroupId = #{roleId} )
+                OR ( t2.userGroupType = "DEPT" AND t2.userGroupId = ( SELECT deptId form sys_user_dept WHERE userId =#{roleId}) )</if>
+        </where>
+    </select>
+
+</mapper>

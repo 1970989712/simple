@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SysUnit">
+
+    <resultMap id="BaseResultMap" type="com.zjl.org.bean.SysUnit">
+        <id property="unitId" column="unitId" jdbcType="VARCHAR"/>
+        <result property="unitCode" column="unitCode" jdbcType="VARCHAR"/>
+        <result property="unitName" column="unitName" jdbcType="VARCHAR"/>
+        <result property="unitFullName" column="unitFullName" jdbcType="VARCHAR"/>
+        <result property="unitType" column="unitType" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parentId" jdbcType="VARCHAR"/>
+        <result property="sortNo" column="sortNo" jdbcType="INTEGER"/>
+        <result property="valid" column="valid" jdbcType="TINYINT"/>
+        <result property="enabledTime" column="enabledTime" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+        <result property="createUser" column="createUser" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="updateUser" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">    unitId, unitCode, unitName, unitFullName, unitType, parentId, sortNo, valid, enabledTime, createTime, createUser, updateTime,  updateUser  </sql>
+
+
+    <select id="queryList" resultMap="BaseResultMap">
+        select
+        t1.*
+        from sys_unit t1
+         join sys_user_dept t2 on t1.unitId =t2.deptId
+        <where>
+            <if test="unitId !=null">and t1.unitId=#{unitId}</if>
+            <if test="userId !=null">and t2.userId =#{userId}</if>
+        </where>
+    </select>
+</mapper>

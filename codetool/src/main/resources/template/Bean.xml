@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="#(beanName)">
+
+    <resultMap id="BaseResultMap" type="com.zjl.org.bean.#(beanName)">
+        #for(x : tablist)
+            #if((for.first) )
+        <id property="#(x.beanfildname)" column="#(x.columnName)" jdbcType="#(x.dataTypejdbc)"/>
+            #else
+        <result property="#(x.beanfildname)" column="#(x.columnName)" jdbcType="#(x.dataTypejdbc)"/>
+            #end
+        #end
+    </resultMap>
+
+
+    <sql id="Base_Column_List">   #for(x : tablist) #if((for.last)) #(x.columnName) #else #(x.columnName),#end #end  </sql>
+
+
+    <select id="queryList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from #(tableName)
+        <where>
+              #for(x : tablist)
+                  #if((for.first) )
+            <if test="#(x.beanfildname) !=null">and #(x.columnName)=#{#(x.beanfildname)}</if>
+            <if test="#(x.beanfildname)1 !=null">and #(x.columnName)=#{#(x.beanfildname)1}</if>
+                  #end
+              #end
+        </where>
+    </select>
+</mapper>

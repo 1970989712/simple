@@ -1,0 +1,44 @@
+server:
+  port: 9093
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/2020simple?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT&useSSL=false
+    username: root
+    password: root
+  redis:
+    host: 101.37.25.2
+    post: 6379
+    password: zjl
+  mail:
+    host: smtp.qq.com
+    username: zjl_simple@qq.com
+    password: djbjpgobbzaddgej
+    default-encoding: UTF-8
+    port: 465
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+            required: true
+          timeout: 10000
+          connectiontimeout: 10000
+          writetimeout: 10000
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+
+mybatis:
+  type-aliases-package: com.zjl.*.bean
+  mapper-locations: classpath:/bean/*.xml
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+uploadFilePath: D://
+appId: simple
