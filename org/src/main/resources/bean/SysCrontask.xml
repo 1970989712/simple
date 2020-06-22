@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SysCrontask">
+
+    <resultMap id="BaseResultMap" type="com.zjl.org.bean.SysCrontask">
+        <id property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="crontasknum" column="crontasknum" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="crontaskname" column="crontaskname" jdbcType="VARCHAR"/>
+        <result property="classname" column="classname" jdbcType="VARCHAR"/>
+        <result property="taskplan" column="taskplan" jdbcType="VARCHAR"/>
+        <result property="active" column="active" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">    uuid, crontasknum, description, crontaskname, classname, taskplan, active, create_time, update_time, create_user,  update_user  </sql>
+
+
+    <select id="queryList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_crontask
+        <where>
+            <if test="uuid !=null">and uuid=#{uuid}</if>
+            <if test="uuid1 !=null">and uuid=#{uuid1}</if>
+        </where>
+    </select>
+</mapper>
