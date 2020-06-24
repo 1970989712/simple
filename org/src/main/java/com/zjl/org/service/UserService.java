@@ -13,5 +13,5 @@ public interface UserService extends IBasicBeanService<SysUser> {
 
     ZlJson logout(String userId);
 
-    Map getInfo(String userId);
+    Map getInfo();
 }

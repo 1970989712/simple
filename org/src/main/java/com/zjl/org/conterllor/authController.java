@@ -54,7 +54,6 @@ public class authController {
     @ZjlJson
     @RequestMapping("/user/info")
     public Map info(HttpServletRequest request) throws Exception {
-        String userId =  (String)request.getAttribute("loginUserId");
-        return userService.getInfo(userId);
+        return userService.getInfo();
     }
 }

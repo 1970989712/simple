@@ -1,13 +1,13 @@
 package com.zjl.org.service.impl;
 
+import com.zjl.comp.bean.User;
 import com.zjl.comp.exception.MyException;
 import com.zjl.comp.service.BasicBeanService;
-import com.zjl.comp.util.ZlJson;
-import com.zjl.comp.util.JwtTokenUtils;
-import com.zjl.comp.util.RedisServiceUnit;
+import com.zjl.comp.util.*;
 import com.zjl.org.bean.SysUser;
 import com.zjl.org.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.beans.BeanMap;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,13 +32,14 @@ public class UserServiceImpl extends BasicBeanService<SysUser> implements UserSe
         Map m = new HashMap<>();
         m.put("account",account);
         SysUser user = this.queryOne(m);
+        User loginuser = CompUtil.mapToObject(BeanMap.create(user),User.class);
         m.clear();
         if(user!=null) flag =  bCryptPasswordEncoder.matches(password, user.getPassword());
         m.put("status",flag);
         if(flag){
         //  List<SysPermission> lists = permissionService.getAllData();
           String token = JwtTokenUtils.createToken(user.getUserId());
-          redisUnit.hmSet(user.getUserId(),"user",user);
+          redisUnit.hmSet(user.getUserId(),"user",loginuser);
           redisUnit.hmSet(user.getUserId(),"token",token);
           m.put("mailbox",user.getMailbox());
           m.put("code","200");
@@ -56,9 +57,9 @@ public class UserServiceImpl extends BasicBeanService<SysUser> implements UserSe
     }
 
     @Override
-    public Map getInfo(String userId){
+    public Map getInfo(){
         Map map = new HashMap();
-        SysUser user =  (SysUser)redisUnit.hmGet(userId,"user");
+        User user =  (User)redisUnit.hmGet(LoginInfo.getUser().getUserId(),"user");
         map.put("user",user);
         return map;
     }

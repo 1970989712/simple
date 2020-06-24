@@ -2,7 +2,6 @@ package com.zjl.comp.conterllor;
 
 import com.zjl.comp.anno.ZjlJson;
 import com.zjl.comp.bean.IBomfBean;
-import com.zjl.comp.bean.LoginUser;
 import com.zjl.comp.service.IBasicBeanService;
 import com.zjl.comp.util.CompUtil;
 import com.zjl.comp.util.ResultCode;

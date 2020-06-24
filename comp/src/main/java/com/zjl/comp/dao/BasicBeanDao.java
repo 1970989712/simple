@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.zjl.comp.anno.MapperXml;
 import com.zjl.comp.anno.Table;
 import com.zjl.comp.bean.IBomfBean;
-import com.zjl.comp.bean.LoginUser;
 import com.zjl.comp.exception.MyException;
 import com.zjl.comp.util.*;
 import org.apache.ibatis.mapping.ResultMap;
@@ -110,8 +109,7 @@ public class BasicBeanDao<T extends IBomfBean> implements IBeanDao<T> {
 
     @Override
     public T insert(T t) throws Exception {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        userId = (String)request.getAttribute("loginUserId");
+        userId = LoginInfo.getUser().getUserId();
         getMapperConfigure();
         preInsert(t);
         Map parameter =  BeanMap.create(t);

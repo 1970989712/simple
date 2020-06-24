@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/2020simple?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT&useSSL=false
     username: root
     password: root
@@ -30,9 +30,16 @@ spring:
           socketFactory:
             class: javax.net.ssl.SSLSocketFactory
 
+logging:
+  level:
+    com.zjl.comp.dao: info
+  pattern:
+    console: '%d{HH:mm:ss.SSS}  %-5p %c - %m%n'
+
 mybatis:
   type-aliases-package: com.zjl.*.bean
   mapper-locations: classpath:/bean/*.xml
+  config-location: classpath:mybatis-config.xml
 
 pagehelper:
   helperDialect: mysql
@@ -42,3 +49,4 @@ pagehelper:
 
 uploadFilePath: D://
 appId: simple
+

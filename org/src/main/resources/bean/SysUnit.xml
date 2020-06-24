@@ -26,7 +26,7 @@
         select
         t1.*
         from sys_unit t1
-         join sys_user_dept t2 on t1.unitId =t2.deptId
+        left join sys_user_dept t2 on t1.unitId =t2.deptId
         <where>
             <if test="unitId !=null">and t1.unitId=#{unitId}</if>
             <if test="userId !=null">and t2.userId =#{userId}</if>
