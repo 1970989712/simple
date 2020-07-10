@@ -18,6 +18,12 @@ public class SysMenu extends AbstractBean {
     /** 菜单title **/
     private String title;
 
+    /** 二级标题 **/
+    private String subTitle;
+
+    /** 是否缓存 **/
+    private Boolean keepAlive;
+
     /** path **/
     private String path;
 
@@ -30,14 +36,8 @@ public class SysMenu extends AbstractBean {
     /** 是否显示 **/
     private Boolean hidden;
 
-    /** 是否启用 **/
-    private Boolean enable;
-
-    /** 总是显示根路由 **/
-    private Boolean alwaysShow;
-
-    /** 是否在面包屑中显示 **/
-    private Boolean breadcrumb;
+    /** 是否显示头部信息 **/
+    private Boolean hiddenHeaderContent;
 
     /** 菜单类型 **/
     private String menuType;
@@ -67,7 +67,6 @@ public class SysMenu extends AbstractBean {
     private Date updateTime;
 
 
-
     public  String getMenuId() {
         return menuId;
     }
@@ -92,6 +91,24 @@ public class SysMenu extends AbstractBean {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+
+    public  String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
+
+
+    public  Boolean getKeepAlive() {
+        return keepAlive;
+    }
+
+    public void setKeepAlive(Boolean keepAlive) {
+        this.keepAlive = keepAlive;
     }
 
 
@@ -131,30 +148,12 @@ public class SysMenu extends AbstractBean {
     }
 
 
-    public  Boolean getEnable() {
-        return enable;
+    public  Boolean getHiddenHeaderContent() {
+        return hiddenHeaderContent;
     }
 
-    public void setEnable(Boolean enable) {
-        this.enable = enable;
-    }
-
-
-    public  Boolean getAlwaysShow() {
-        return alwaysShow;
-    }
-
-    public void setAlwaysShow(Boolean alwaysShow) {
-        this.alwaysShow = alwaysShow;
-    }
-
-
-    public  Boolean getBreadcrumb() {
-        return breadcrumb;
-    }
-
-    public void setBreadcrumb(Boolean breadcrumb) {
-        this.breadcrumb = breadcrumb;
+    public void setHiddenHeaderContent(Boolean hiddenHeaderContent) {
+        this.hiddenHeaderContent = hiddenHeaderContent;
     }
 
 

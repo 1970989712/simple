@@ -30,4 +30,6 @@ public interface IBasicBeanService<T> {
 
     T queryOne(Map<String, Object> parameter);
 
+    List<T> queryWhere(String queryName,Map map) throws Exception;
+
 }

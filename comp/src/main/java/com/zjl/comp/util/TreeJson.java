@@ -42,7 +42,7 @@ public class TreeJson {
     }
 
 
-    private List<Map> getzTreeData(List<Map> allData,String pid) {
+    public List<Map> getzTreeData(List<Map> allData,String pid) {
         List<Map> ms  =  allData.stream()
                 .filter((Map m) -> pid.equals(m.get(parentCode)))
                 .collect(Collectors.toList());

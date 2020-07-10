@@ -1,8 +1,7 @@
 package com.zjl.org.config;
 
-
 import com.zjl.org.Interceptor.LoginInterceptor;
-import com.zjl.org.Interceptor.RoleInterceptor;
+import com.zjl.org.Interceptor.AuthorityInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -21,7 +20,7 @@ public class IntercepterAdapter implements WebMvcConfigurer {
     private LoginInterceptor loginInterceptor;
 
     @Resource
-    private RoleInterceptor roleInterceptor;
+    private AuthorityInterceptor roleInterceptor;
 
 
     @Override

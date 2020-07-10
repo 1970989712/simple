@@ -1,5 +1,6 @@
 package com.zjl.comp.conterllor;
 
+import com.zjl.comp.anno.AuthorityKey;
 import com.zjl.comp.anno.ZjlJson;
 import com.zjl.comp.bean.IBomfBean;
 import com.zjl.comp.service.IBasicBeanService;
@@ -25,8 +26,6 @@ public class BaseConterllor<T extends IBomfBean> {
     @Autowired
     private IBasicBeanService<T> updservice;
 
-    private Class<T> updaclazz;
-
 
     @ZjlJson
     @RequestMapping(value={"/id/{id}"},method= RequestMethod.GET)
@@ -46,33 +45,37 @@ public class BaseConterllor<T extends IBomfBean> {
         return updservice.queryPage(queryName,pagenum,pagesize,requestparamemap);
     }
 
-
+    @AuthorityKey("insert")
     @RequestMapping(value={"/add"},method= RequestMethod.POST)
     public Object add(HttpServletRequest request,@RequestBody T bean) throws Exception {
         return new ZlJson(ResultCode.ADD_SUCCESS,updservice.insert(bean));
     }
 
+    @AuthorityKey("delete")
     @RequestMapping(value={"/del"},method= RequestMethod.POST)
     public Object del(HttpServletRequest request,@RequestBody T bean) throws Exception {
         return updservice.delete(bean);
     }
 
-
+    @AuthorityKey("update")
     @RequestMapping(value={"/upd"},method= RequestMethod.POST)
     public Object upd(HttpServletRequest request,@RequestBody T bean) throws Exception {
         return updservice.update(bean);
     }
 
+    @AuthorityKey("update")
     @RequestMapping(value={"/batch/upd"},method= RequestMethod.POST)
     public Object batchupd(HttpServletRequest request,@RequestBody List<T> bean) throws Exception {
         return updservice.batchupd(bean);
     }
 
+    @AuthorityKey("insert")
     @RequestMapping(value={"/batch/add"},method= RequestMethod.POST)
     public Object batchadd(HttpServletRequest request,@RequestBody List<T> bean) throws Exception {
         return updservice.batchadd(bean);
     }
 
+    @AuthorityKey("delete")
     @RequestMapping(value={"/batch/del"},method= RequestMethod.POST)
     public Object batchdel(HttpServletRequest request,@RequestBody List<T> bean) throws Exception {
         return new ZlJson(ResultCode.DEL_SUCCESS,updservice.batchdel(bean));

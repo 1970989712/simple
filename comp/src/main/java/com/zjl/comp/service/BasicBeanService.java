@@ -31,6 +31,11 @@ public class BasicBeanService<T extends IBomfBean> implements IBasicBeanService<
     }
 
     @Override
+    public List<T> queryWhere(String queryName,Map map) throws Exception {
+        return updateDao.querywhere(queryName,map);
+    }
+
+    @Override
     public PageInfo<T> queryPage(String queryName,Integer pagenum, Integer pagesize, Map map) throws Exception {
         return updateDao.queryPage(queryName,pagenum,pagesize,map);
     }

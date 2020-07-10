@@ -1,6 +1,5 @@
 package com.zjl.org.conterllor;
 
-import com.zjl.comp.bean.User;
 import com.zjl.comp.util.LoginInfo;
 import com.zjl.comp.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +32,7 @@ public class UploadController {
         for(MultipartFile file:files){
             String fileName = file.getOriginalFilename();  // 文件名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
-            String filePath = path+appId+"//"+request.getAttribute("loginUserId")+"//"; // 上传后的路径
+            String filePath = path+appId+"//"+ LoginInfo.getUser().getUserId() +"//"; // 上传后的路径
             fileName = UUIDUtil.getUUID() + suffixName; // 新文件名
             File dest = new File(filePath + fileName);
             if (!dest.getParentFile().exists()) {

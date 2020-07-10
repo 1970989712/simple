@@ -36,8 +36,8 @@
         `sys_role` t1
         JOIN sys_user_group_role t2 ON t1.roleId = t2.roleId
         <where>
-            <if test="userId !=null">and ( t2.userGroupType = "USER" AND t2.userGroupId = #{roleId} )
-                OR ( t2.userGroupType = "DEPT" AND t2.userGroupId = ( SELECT deptId form sys_user_dept WHERE userId =#{roleId}) )</if>
+            <if test="userId !=null">and ( t2.userGroupType = "USER" AND t2.userGroupId = #{userId} )
+                OR ( t2.userGroupType = "DEPT" AND t2.userGroupId = ( SELECT deptId from sys_user_dept WHERE userId =#{userId}) )</if>
         </where>
     </select>
 

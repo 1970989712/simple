@@ -7,7 +7,6 @@ import com.zjl.comp.util.RedisServiceUnit;
 import com.zjl.comp.util.ResultCode;
 import com.zjl.comp.util.SpringUtil;
 import com.zjl.org.bean.SysAnonymous;
-import com.zjl.org.bean.SysUser;
 import com.zjl.org.service.SysAnonymousService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -26,6 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     private static final String tokenType = "Access-Token";
 
+
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         if (chackUrl(httpServletRequest.getRequestURL().toString())) return true;
@@ -37,8 +37,8 @@ public class LoginInterceptor implements HandlerInterceptor {
             String redToken = (String) SpringUtil.getBean(RedisServiceUnit.class).hmGet(userId, "token");
             if (!redToken.equals(token)) throw new MyException(ResultCode.TOKEN_NOT_FIND);
             User usr = (User)SpringUtil.getBean(RedisServiceUnit.class).hmGet(userId, "user");
-            httpServletRequest.setAttribute("loginUserId",userId);
             httpServletRequest.setAttribute("loginUser",usr);
+            httpServletRequest.setAttribute("notAnony",true);
             return true;
         } else {
             throw new MyException(ResultCode.NO_PERMISSION);

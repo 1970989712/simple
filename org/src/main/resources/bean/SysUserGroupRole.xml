@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SysUserGroupRole">
+
+    <resultMap id="BaseResultMap" type="com.zjl.org.bean.SysUserGroupRole">
+        <id property="userGroupRoleId" column="userGroupRoleId" jdbcType="VARCHAR"/>
+        <result property="roleId" column="roleId" jdbcType="VARCHAR"/>
+        <result property="userGroupId" column="userGroupId" jdbcType="VARCHAR"/>
+        <result property="userGroupType" column="userGroupType" jdbcType="VARCHAR"/>
+        <result property="createUser" column="createUser" jdbcType="VARCHAR"/>
+        <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="updateUser" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+        <result property="userGroupName" column="userGroupName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">    userGroupRoleId, roleId, userGroupId, userGroupType, createUser, createTime, updateUser,  updateTime  </sql>
+
+
+    <select id="queryList" resultMap="BaseResultMap">
+        SELECT DISTINCT
+	    t1.user_name AS userGroupName,
+	    t2.userGroupType
+        FROM
+	    sys_user t1
+	    JOIN sys_user_group_role t2 ON t1.user_id = t2.userGroupId
+	    AND t2.userGroupType = "USER" where t2.roleId= #{roleId}
+        UNION ALL
+        SELECT DISTINCT
+	    t1.unitName AS userGroupName,
+	    t2.userGroupType
+        FROM
+	    sys_unit t1
+	    JOIN sys_user_group_role t2 ON t1.unitId = t2.userGroupId
+	    AND t2.userGroupType = "DEPT" where t2.roleId=#{roleId}
+    </select>
+</mapper>

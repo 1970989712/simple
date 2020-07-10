@@ -6,13 +6,13 @@
         <id property="menuId" column="menuId" jdbcType="VARCHAR"/>
         <result property="menuName" column="menuName" jdbcType="VARCHAR"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="subTitle" column="subTitle" jdbcType="VARCHAR"/>
+        <result property="keepAlive" column="keepAlive" jdbcType="TINYINT"/>
         <result property="path" column="path" jdbcType="VARCHAR"/>
         <result property="component" column="component" jdbcType="VARCHAR"/>
         <result property="redirect" column="redirect" jdbcType="VARCHAR"/>
         <result property="hidden" column="hidden" jdbcType="TINYINT"/>
-        <result property="enable" column="enable" jdbcType="TINYINT"/>
-        <result property="alwaysShow" column="alwaysShow" jdbcType="TINYINT"/>
-        <result property="breadcrumb" column="breadcrumb" jdbcType="TINYINT"/>
+        <result property="hiddenHeaderContent" column="hiddenHeaderContent" jdbcType="TINYINT"/>
         <result property="menuType" column="menuType" jdbcType="VARCHAR"/>
         <result property="authorityKey" column="authorityKey" jdbcType="VARCHAR"/>
         <result property="sortNo" column="sortNo" jdbcType="INTEGER"/>
@@ -25,7 +25,7 @@
     </resultMap>
 
 
-    <sql id="Base_Column_List">    menuId, menuName, title, path, component, redirect, hidden, enable, alwaysShow, breadcrumb, menuType, authorityKey, sortNo, icon, parentId, createUser, createTime, updateUser,  updateTime  </sql>
+    <sql id="Base_Column_List">    menuId, menuName, title, subTitle, keepAlive, path, component, redirect, hidden, hiddenHeaderContent, menuType, authorityKey, sortNo, icon, parentId, createUser, createTime, updateUser,  updateTime  </sql>
 
 
     <select id="queryList" resultMap="BaseResultMap">
@@ -34,7 +34,28 @@
         from sys_menu
         <where>
             <if test="menuId !=null">and menuId=#{menuId}</if>
-            <if test="menuId1 !=null">and menuId=#{menuId1}</if>
+            <if test="menuType !=null">and menuType=#{menuType}</if>
         </where>
+    </select>
+
+
+    <select id="queryMenuByUser" resultMap="BaseResultMap">
+        SELECT
+	    t1.*
+        FROM
+	    `sys_menu` t1
+	    JOIN sys_resource_authority t2 ON t1.menuId = t2.resourceId
+        WHERE
+	    t2.roleId IN (
+          SELECT DISTINCT
+	        t1.roleId
+            FROM
+	        `sys_role` t1
+	        JOIN sys_user_group_role t2 ON t1.roleId = t2.roleId
+            WHERE
+	        ( t2.userGroupType = 'USER' AND t2.userGroupId = #{userId} )
+	        OR ( t2.userGroupType = 'DEPT'
+	        AND t2.userGroupId = ( SELECT deptId FROM sys_user_dept WHERE userId = #{userId} )))
+        and t1.menuType=#{menuType} ORDER BY sortNo
     </select>
 </mapper>

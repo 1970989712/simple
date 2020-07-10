@@ -15,8 +15,6 @@ public @interface MapperXml {
 
     String namespace() default "";
 
-    String xmlFile() default "";
-
     String defaultQuery() default "queryList";
 
 }

@@ -114,7 +114,7 @@ public class BasicBeanDao<T extends IBomfBean> implements IBeanDao<T> {
         preInsert(t);
         Map parameter =  BeanMap.create(t);
         List<ResultMapping> mappings = resultMappings;
-        List list = new ArrayList<>();
+        List<Map> list = new ArrayList<>();
         Map m = new HashMap();
         Set<String> s = parameter.keySet();
         Map defaultInsertValue = new HashMap();
@@ -258,16 +258,22 @@ public class BasicBeanDao<T extends IBomfBean> implements IBeanDao<T> {
     }
 
 
-    private void createDefaultInsertValue(List list,Map map,Map bM){
+    private void createDefaultInsertValue(List<Map> list,Map map,Map bM){
         Boolean idfalg = (Boolean)map.get("id");
         Boolean falgtime = (Boolean)map.get("create_time");
         Boolean falguser = (Boolean)map.get("create_user");
 
         Map m = new HashMap();
         if(!idfalg) {
-            String id = UUIDUtil.getUUID();
+           String id = UUIDUtil.getUUID();
            m.put("key", idMapping.getColumn());
            m.put("value", id);
+           for(Map mp:list){
+               if(mp.get("key").equals(m.get("key"))) {
+                   list.remove(mp);
+                   break;
+               }
+           }
            list.add(m);
            bM.put(idMapping.getProperty(),id);
         }
@@ -277,6 +283,12 @@ public class BasicBeanDao<T extends IBomfBean> implements IBeanDao<T> {
             List<ResultMapping> listkey = resultMappings.stream().filter((ResultMapping mapping)->("createTime").equals(mapping.getProperty())).collect(Collectors.toList());
             m.put("key",listkey.get(0).getColumn());
             m.put("value",tim);
+            for(Map mp:list){
+                if(mp.get("key").equals(m.get("key"))) {
+                    list.remove(mp);
+                    break;
+                }
+            }
             list.add(m);
             bM.put("createTime",DateUtil.parse(tim));
         }
@@ -285,6 +297,12 @@ public class BasicBeanDao<T extends IBomfBean> implements IBeanDao<T> {
             m = new HashMap();
             m.put("key",listkey.get(0).getColumn());
             m.put("value",userId);
+            for(Map mp:list){
+                if(mp.get("key").equals(m.get("key"))) {
+                    list.remove(mp);
+                    break;
+                }
+            }
             list.add(m);
             bM.put("createUser",userId);
         }

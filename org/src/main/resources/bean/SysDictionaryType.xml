@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SysDictionaryType">
+
+    <resultMap id="BaseResultMap" type="com.zjl.org.bean.SysDictionaryType">
+        <id property="codeItemId" column="codeItemId" jdbcType="VARCHAR"/>
+        <result property="codeItemName" column="codeItemName" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parentId" jdbcType="VARCHAR"/>
+        <result property="sortNo" column="sortNo" jdbcType="INTEGER"/>
+        <result property="isUpdate" column="isUpdate" jdbcType="TINYINT"/>
+        <result property="createUser" column="createUser" jdbcType="VARCHAR"/>
+        <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="updateUser" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">    codeItemId, codeItemName, parentId, sortNo, isUpdate, createUser, createTime, updateUser,  updateTime  </sql>
+
+
+    <select id="queryList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_dictionary_type
+        <where>
+            <if test="codeItemId !=null">and codeItemId=#{codeItemId}</if>
+            <if test="codeItemId1 !=null">and codeItemId=#{codeItemId1}</if>
+        </where>
+    </select>
+</mapper>

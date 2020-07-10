@@ -36,7 +36,7 @@ public class CodeServiceImpl implements CodeService {
 
     @Override
     public void wirteCode() throws Exception {
-        String db_table_name = "sys_crontask";
+        String db_table_name = "sys_dictionary_type";
         String dirPath = System.getProperty("user.dir"); //获取项目文件地址
         String path = "\\org\\src\\main\\java\\com\\zjl\\org";        //指定文件生成路径
 
