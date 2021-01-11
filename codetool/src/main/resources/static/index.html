@@ -1,0 +1,210 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<link rel="stylesheet" type="text/css" href="/css/H-ui.admin.css" />
+	<link rel="stylesheet" type="text/css" href="/css/style.css" />
+	<link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+	<link rel="shortcut icon" href="/picture.ico">
+	<title>codeTool</title>
+</head>
+
+<body>
+	<!--头部-->
+	<header class="navbar-wrapper" style="background-color: #284797;" >
+		<div style="padding-top: 5px;color: white;height: 37px;">
+			<img src="\image\text.png"> coodtool代码完(jian)美(dan)生成
+		</div>
+	</header>
+
+	<!--左侧栏-->
+	<aside class="Hui-aside">
+		<div class="menu_dropdown bk_2">
+			<ul id="d1">
+				#for(x : menus)
+				<li ondragstart="drag(event)"  draggable="true" ondblclick="infoToForm(this)" class="table-li" id="#(x.tableName)"><a  data-title="#(x.tableName)"  href="javascript:void(0)">#(x.tableName)[#(x.tableComment)]</a></li>
+				#end
+			</ul>
+		</div>
+	</aside>
+
+	<!--内容栏-->
+	<section class="Hui-article-box">
+		<!-- iframe 嵌入页面-->
+		<div id="iframe_box" class="Hui-article">
+			<div class="show_iframe">
+				<div class="token-kuang">
+					<div class="layui-form" action="/codetool/wirte" style="margin-left: 10%;">
+						<div class="layui-form-item">
+							<input style="display: none" type="text" name="selectTable">
+
+							<div class="layui-inline">
+								<label class="layui-form-label">bean名称</label>
+								<div class="layui-input-inline">
+									<input type="text" lay-verify="required" name="beanName" autocomplete="off" class="layui-input" >
+								</div>
+							</div>
+
+
+							<div class="layui-inline">
+								<label class="layui-form-label">包名</label>
+								<div class="layui-input-inline">
+									<input type="text" lay-verify="required" name="pageName" autocomplete="off" class="layui-input" placeholder="com.zjl.org">
+								</div>
+							</div>
+
+
+							<div class="layui-inline">
+								<label class="layui-form-label">模块名</label>
+								<div class="layui-input-inline">
+									<select name="modules" lay-filter="modules">
+										<option value="">请选择</option>
+										#for(module : modules)
+										<option value="#(module)">#(module)</option>
+										#end
+									</select>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="layui-form-item" pane="">
+							<label class="layui-form-label">生成文件</label>
+							<div class="layui-input-block">
+								<input type="checkbox" name="bean" lay-skin="primary" title="bean.java" checked="">
+								<input type="checkbox" name="xml" lay-skin="primary" title="bean.xml" checked="">
+								<input type="checkbox" name="Dao" lay-skin="primary" title="Dao" checked="">
+								<input type="checkbox" name="Service" lay-skin="primary" title="Service" checked="">
+								<input type="checkbox" name="Conterllor" lay-skin="primary" title="Conterllor" checked="">
+								<input type="checkbox" name="Web" lay-skin="primary" title="Web" disabled="">
+							</div>
+						</div>
+
+
+						<div class="layui-form-item">
+							<div class="layui-input-block">
+								<button id="beginbutton" disabled="disabled" class="layui-btn layui-btn-normal layui-btn-disabled" type="button" lay-submit="" lay-filter="cerat">立即生成</button>
+								<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div style="text-align: center">
+
+					<div class="tuo-dong" id="tuo-dong-box">
+						<span>拖动到此处</span>
+					</div>
+
+				 	<!--<div class="zjl-btns">-->
+						<!--<div style="height: 30px;border: 1px solid darkgray;background: aliceblue;color:#bbbcc2">-->
+							<!--<span style="line-height: 30px;">点击下方按钮即可查看编辑模板&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;<a href="" target="_blank">编辑模板必读</a></span>-->
+						<!--</div>-->
+						<!--<button type="button" onclick="showWindow('Bean.java')" class="layui-btn layui-btn-normal">Bean.java</button>-->
+						<!--<button type="button" onclick="showWindow('Bean.xml')" class="layui-btn layui-btn-normal">Bean.xml</button>-->
+						<!--<button type="button" onclick="showWindow('Dao.java')" class="layui-btn layui-btn-normal">Dao.java</button>-->
+						<!--<button type="button" onclick="showWindow('Service.java')" class="layui-btn layui-btn-normal">Service.java</button>-->
+						<!--<button type="button" onclick="showWindow('Serviceimpl.java')" class="layui-btn layui-btn-normal">Serviceimpl.java</button>-->
+						<!--<button type="button" onclick="showWindow('Conterllor.java')" class="layui-btn layui-btn-normal">Conterllor.java</button>-->
+				 	<!--</div>-->
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
+<script type="text/javascript" src="/js/jquery/1.9.1/jquery.min.js"></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form,layer = layui.layer,layedit = layui.layedit,laydate = layui.laydate;
+        form.on('select(modules)', function(data){
+            var val=data.value;
+            if(val)  $("[name='pageName']").val("com.zjl."+val);
+        });
+        form.on('submit(cerat)', function(data){
+            var index = layer.msg('创建中..', {icon: 16,shade: 0.3,time: false});
+            $.post("/codetool/wirte", data.field,function (res) {
+                layer.close(index);
+                if(res.code=='200') {
+                    layer.msg('创建成功', {icon: 1, shade: 0.3, time: 500});
+                }else{
+                    layer.msg('创建失败', {icon: 2, shade: 0.3, time: 500});
+				}
+            });
+            return false;
+        });
+    });
+
+
+    function infoToForm(me) {
+        debugger;
+      var tableName = $(me).find("a").attr("data-title");
+      $('.menu_dropdown').find('li a').removeClass("select-me");
+      $(me).find("a").addClass("select-me");
+      $("[name='selectTable']").val(tableName);
+      var array = tableName.split("_");
+      var beanName = "";
+      for(var i=1;i<array.length;i++){
+          beanName+=array[i].charAt(0).toUpperCase() + array[i].slice(1);
+	  }
+	  if(array.length==1) beanName = array[0].charAt(0).toUpperCase()+ array[0].slice(1);
+      $("[name='beanName']").val(beanName);
+      var modules = $("[name='modules']").val();
+      if(modules)  $("[name='pageName']").val("com.zjl."+modules);
+      $("#beginbutton").removeClass("layui-btn-disabled").removeAttr("disabled");
+    }
+
+    var d2 = document.getElementById("tuo-dong-box");
+    function drag(event) {
+        event.target.style.opacity = 1
+        console.log("开始"+ event.target.id)
+        event.dataTransfer.setData('table', event.target.id);
+    }
+
+    d2.ondragover = function(event) {
+        var event = event || window.event;
+        $(d2).find("span").text("你快放手啊！！");
+        event.preventDefault()
+    }
+
+    d2.ondragleave = function(event) {
+        $(d2).find("span").text("拖动到此处");
+        event.preventDefault()
+	}
+
+    d2.ondrop = function(event) {
+        var e = event || window.event;
+        var eTarget = e.target;
+        var data = e.dataTransfer.getData('table');
+        infoToForm("#"+data)
+        $(d2).find("span").text("拖动到此处");
+    }
+
+	function showWindow(me) {
+       var tk = layer.open({
+            type: 2,
+            title: me+'模板',
+            area: ['900px', '700px'],
+            shadeClose: true,
+            content: '/creat.html?templateType='+me,
+            btn: ['确定','取消'],
+            btn1: function(index, layero) {
+			  var obj = $(layero).find("iframe")[0].contentWindow;
+              var templateText =  obj.returnEditor();
+              $.post("/changeFile",{'templateType':me,'templateText':templateText},function(data) {
+                  alert(data);
+			  });
+            },
+            btn2: function(index, layero){
+                layer.close(tk);
+            },
+
+        });
+
+    }
+
+</script>

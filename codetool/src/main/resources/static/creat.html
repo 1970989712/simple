@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+		<link rel="stylesheet" href="/codemirror/lib/codemirror.css" type="text/css">
+	</head>
+	<body>
+
+		<div class="scriptDiv" style="border-bottom: 1px solid #e1dcdc;">
+			<textarea class="editor"></textarea>
+		</div>
+
+	</body>
+</html>
+<script type="text/javascript" src="/codemirror/lib/codemirror.js"></script>
+<script type="text/javascript" src="/codemirror/mode/clike/clike.js"></script>
+<script type="text/javascript" src="/codemirror/mode/xml/xml.js"></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+	var cfg = {
+            smartIndent: true,
+            styleActiveLine: true,
+            lineNumbers: true,
+            lineWrapping: true,
+            matchBrackets: true,
+            autofocus: true,
+            mode: 'clike'
+	};
+	var Editor = CodeMirror.fromTextArea($('.scriptDiv .editor')[0], cfg);
+	Editor.setSize('auto', (window.innerHeight-2) + 'px');
+	var templateType = getQueryString("templateType");
+	$.get("/getFile?templateType="+templateType,function (data) {
+		Editor.setValue(data);
+	})
+
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r !== null)
+            return unescape(r[2]);
+        return null;
+    }
+
+    function returnEditor() {
+		return Editor.getValue();
+    }
+
+</script>

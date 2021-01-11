@@ -25,5 +25,4 @@ public class SysAnonymousServiceImpl extends BasicBeanService<SysAnonymous> impl
         log.info("匿名访问清单加载完成！");
     }
 
-
 }

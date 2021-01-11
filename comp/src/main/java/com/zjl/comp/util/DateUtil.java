@@ -11,7 +11,9 @@ import java.util.Date;
  */
 public class DateUtil {
     private static final int TIME_ZONE_OFFSET = Calendar.getInstance().getTimeZone().getRawOffset();
+
     public static final String SDF_YMDHMS = "yyyy-MM-dd HH:mm:ss";
+    public static final String SDF_CN = "yyyy年MM月dd日";
     public static final String DATE_FORMAT_FULL = "yyyy-MM-dd HH:mm:ss.sss";
 
     public DateUtil() {

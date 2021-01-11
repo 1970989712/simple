@@ -2,9 +2,36 @@ server:
   port: 9800
 
 spring:
+  resources:
+    static-locations: classpath:/static/  #静态资源路径
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/2020simple?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT&useSSL=false
     username: root
     password: root
+
+#spring:
+#  resources:
+#    static-locations: classpath:/static/  #静态资源路径
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://101.37.25.2:3306/test5?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT&useSSL=false
+#    username: root
+#    password: 123456
+
+#spring:
+#  resources:
+#    static-locations: classpath:/static/  #静态资源路径
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://10.68.18.234:3306/techsupervise_test?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT&useSSL=false
+#    username: root
+#    password: Root@123
+
+
+
+
+projectPath: D:\myjavaEE\项目文档\fanly_zjl_boot\jwind

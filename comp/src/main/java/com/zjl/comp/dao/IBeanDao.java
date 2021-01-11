@@ -1,6 +1,7 @@
 package com.zjl.comp.dao;
 
 import com.github.pagehelper.PageInfo;
+import com.zjl.comp.bean.IBomfBean;
 import com.zjl.comp.util.ZlJson;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public interface IBeanDao<T> {
       PageInfo<T> queryPage(String queryName,Integer pagenum, Integer pagesize, Map map) throws Exception;
 
       List<T> querywhere(String statement,Map<String, Object> parameter) throws Exception;
+
+      List<T> querywhere(String namespace,String statement,Map<String, Object> parameter) throws Exception;
 
       T insert(T t) throws Exception;
 

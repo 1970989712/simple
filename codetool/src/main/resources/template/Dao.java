@@ -1,7 +1,7 @@
-package com.zjl.org.dao;
+package #(pageName).dao;
 
 import com.zjl.comp.dao.BasicBeanDao;
-import com.zjl.org.bean.#(beanName);
+import #(pageName).bean.#(beanName);
 import org.springframework.stereotype.Component;
 
 @Component

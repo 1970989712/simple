@@ -1,6 +1,5 @@
 package com.zjl.comp.util;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -36,17 +35,6 @@ public class SpringUtil implements ApplicationContextAware {
     //通过name获取 Bean.
     public static Object getBean(String name) {
         return getApplicationContext().getBean(name);
-    }
-
-
-    public static Object getBean(String comp,String name){
-        Object obj = null;
-        try {
-            obj = getBean(comp+name);
-        }catch (Exception e){
-            throw new RuntimeException("未找到组件"+comp+"下,"+name);
-        }
-        return obj;
     }
 
     //通过class获取Bean.

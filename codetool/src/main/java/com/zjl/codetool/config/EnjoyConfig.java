@@ -18,19 +18,17 @@ public class EnjoyConfig {
         JFinalViewResolver jfr = new JFinalViewResolver();
         Engine engine = jfr.engine;  //使用Enjoy模板
         engine.setDevMode(true);
-        String dirPath = System.getProperty("user.dir"); //获取项目文件地址
-        String codeTemplatePath = "\\codetool\\src\\main\\resources\\template"; //模板地址;
-        engine.setBaseTemplatePath(dirPath + codeTemplatePath);
+        engine.setToClassPathSourceFactory();
         engine.addSharedMethod(new StrKit());    //首字母大写
         //代码生成模板
-        engine.addSharedFunction("/Bean.java");  //添加模板
-        engine.addSharedFunction("/Dao.java");   //添加模板
-        engine.addSharedFunction("/Service.java");  //添加模板
-        engine.addSharedFunction("/Serviceimpl.java");   //添加模板
-        engine.addSharedFunction("/Conterllor.java");  //添加模板
-        engine.addSharedFunction("/Bean.xml");  //添加模板
+        engine.addSharedFunction("/template/Bean.java");  //添加模板
+        engine.addSharedFunction("/template/Dao.java");   //添加模板
+        engine.addSharedFunction("/template/Service.java");  //添加模板
+        engine.addSharedFunction("/template/Serviceimpl.java");   //添加模板
+        engine.addSharedFunction("/template/Conterllor.java");  //添加模板
+        engine.addSharedFunction("/template/Bean.xml");  //添加模板
         //代码生成界面
-        engine.addSharedFunction("/view/index.html");  //添加查看页面
+        engine.addSharedFunction("/static/index.html");
         // 配置极速模式，性能提升 13%
         engine.setFastMode(true);
         return jfr;

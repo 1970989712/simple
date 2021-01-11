@@ -34,8 +34,10 @@
         from sys_menu
         <where>
             <if test="menuId !=null">and menuId=#{menuId}</if>
+
             <if test="menuType !=null">and menuType=#{menuType}</if>
         </where>
+        ORDER BY sortNo
     </select>
 
 

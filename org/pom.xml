@@ -20,8 +20,7 @@
            <artifactId>comp</artifactId>
            <version>0.0.1-SNAPSHOT</version>
        </dependency>
-
-              <!-- 安全框架 使用BCrypt密码加密-->
+        <!-- 安全框架 使用BCrypt密码加密-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -118,23 +117,4 @@
 
     </dependencies>
 
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                   <mainClass>com.zjl.org</mainClass>
-                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

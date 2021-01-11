@@ -1,7 +1,7 @@
-package com.zjl.org.service;
+package #(pageName).service;
 
 import com.zjl.comp.service.IBasicBeanService;
-import com.zjl.org.bean.#(beanName);
+import #(pageName).bean.#(beanName);
 
 public interface #(beanName)Service extends IBasicBeanService<#(beanName)> {
 

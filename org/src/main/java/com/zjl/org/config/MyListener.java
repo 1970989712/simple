@@ -1,12 +1,11 @@
 package com.zjl.org.config;
-import com.zjl.org.bean.SysDatasource;
+
 import com.zjl.org.service.SysAnonymousService;
 import com.zjl.org.service.SysCrontaskService;
-import com.zjl.org.service.SysDatasourceService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.util.CollectionUtils;
+
 
 import javax.annotation.Resource;
 

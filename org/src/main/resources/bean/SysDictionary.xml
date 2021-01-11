@@ -25,7 +25,7 @@
         from sys_dictionary
         <where>
             <if test="dictionaryId !=null">and dictionaryId=#{dictionaryId}</if>
-            <if test="dictionaryId1 !=null">and dictionaryId=#{dictionaryId1}</if>
+            <if test="codeItemId !=null">and codeItemId=#{codeItemId}</if>
         </where>
     </select>
 </mapper>

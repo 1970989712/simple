@@ -10,6 +10,7 @@
         <module>config</module>
         <module>codetool</module>
         <module>comp</module>
+        <module>publish</module>
     </modules>
     <name>simple</name>
     <packaging>pom</packaging>

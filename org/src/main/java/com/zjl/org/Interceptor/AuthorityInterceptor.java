@@ -28,7 +28,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        Object obj = request.getAttribute("notAnony");
+        Object obj = request.getAttribute("notAnony");  // 非匿名访问
         boolean returnFlag = false;
         if(obj==null) return true;
         if((Boolean) obj){

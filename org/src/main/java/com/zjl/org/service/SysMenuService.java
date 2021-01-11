@@ -8,4 +8,5 @@ import java.util.Map;
 
 public interface SysMenuService extends IBasicBeanService<SysMenu> {
     Map founndMenu(String userId,String parentId) throws Exception;
+    Map getAllMenu(String roleId) throws Exception;
 }

@@ -37,8 +37,8 @@ public class TreeJson {
         this.childName = childName;
     }
 
-    public <T extends IBomfBean>List<Map> getTreeDataByBean(List<T> list, String parentId){
-       return getzTreeData(CompUtil.EntityConvertMap(list),parentId);
+    public <T extends IBomfBean>List<Map> getTreeDataByBean(List<T> list, String parentId) throws Exception {
+       return getzTreeData(CompUtil.bean2map(list),parentId);
     }
 
 

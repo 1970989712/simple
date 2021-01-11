@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SysResourceAuthority">
+
+    <resultMap id="BaseResultMap" type="com.zjl.org.bean.SysResourceAuthority">
+        <id property="resourceAuthorityId" column="resourceAuthorityId" jdbcType="VARCHAR"/>
+        <result property="roleId" column="roleId" jdbcType="VARCHAR"/>
+        <result property="resourceId" column="resourceId" jdbcType="VARCHAR"/>
+        <result property="resourceType" column="resourceType" jdbcType="VARCHAR"/>
+        <result property="createUser" column="createUser" jdbcType="VARCHAR"/>
+        <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="updateUser" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">    resourceAuthorityId, roleId, resourceId, resourceType, createUser, createTime, updateUser,  updateTime  </sql>
+
+
+    <select id="queryList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_resource_authority
+        <where>
+            <if test="resourceAuthorityId !=null">and resourceAuthorityId=#{resourceAuthorityId}</if>
+            <if test="roleId !=null">and roleId=#{roleId}</if>
+        </where>
+    </select>
+</mapper>

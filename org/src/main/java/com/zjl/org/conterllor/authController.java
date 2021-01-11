@@ -1,18 +1,22 @@
 package com.zjl.org.conterllor;
 
 import com.zjl.comp.anno.ZjlJson;
-import com.zjl.comp.util.IpUtil;
-import com.zjl.comp.util.AddressUtils;
+import com.zjl.comp.bean.User;
+import com.zjl.comp.util.*;
 import com.zjl.comp.message.sendMessage;
-import com.zjl.comp.util.SpringUtil;
-import com.zjl.comp.util.ZlJson;
 import com.zjl.org.service.UserService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author zhoujl
@@ -47,7 +51,7 @@ public class authController {
 
     @RequestMapping("/logout")
     public ZlJson logout(HttpServletRequest request) {
-        String userId =  (String)request.getAttribute("loginUserId");
+        String userId = LoginInfo.getUser().getUserId();
         return userService.logout(userId);
     }
 

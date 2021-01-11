@@ -1,0 +1,33 @@
+.table-li{
+    position: relative ;
+    border: 2px solid #cecfd7;
+    margin: 1px;
+}
+
+.table-li::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.tuo-dong {
+    margin: 10%;
+    width: 80%;
+    height: 100px;
+    border: 2px solid #a3b0d3;
+    text-align: center;
+}
+
+.tuo-dong span{
+    color: gainsboro;
+    display: block;
+    margin: 4%;
+}
+
+.select-me{
+    color: #0066CC;
+}
+

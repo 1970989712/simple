@@ -1,8 +1,9 @@
 package com.zjl.comp.bean;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+
 import java.util.HashMap;
 import java.util.Map;
-
 
 public abstract class AbstractBean implements IBomfBean {
 
@@ -11,6 +12,7 @@ public abstract class AbstractBean implements IBomfBean {
     /**
      * 再对象中,不返回前端
      */
+    @ExcelIgnore
     protected Map<String, Object> extData = null;
 
     public void addExtAttribute(String fieldName, Object obj) {

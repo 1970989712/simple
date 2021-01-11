@@ -1,5 +1,11 @@
 package com.zjl.org.bean;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.alibaba.excel.annotation.write.style.ContentRowHeight;
+import com.alibaba.excel.annotation.write.style.HeadRowHeight;
 import com.zjl.comp.anno.MapperXml;
 import com.zjl.comp.anno.Table;
 import com.zjl.comp.bean.AbstractBean;
@@ -10,35 +16,54 @@ import java.util.Date;
  * @author zhoujl
  * @date 2020/3/23
  */
-@Table(name="sys_user")
+@Table(name="sys_user",description = "用户表")
 @MapperXml(namespace="SysUser")
+@ContentRowHeight(30)//内容高度
+@HeadRowHeight(30)//头部高度
+@ColumnWidth(25)//列宽
 public class SysUser extends AbstractBean {
+
+    //账号
+    @ExcelIgnore
     private String userId;
     //账号
+    @ExcelProperty("账户")
     private String account;
     //用户名
+    @ExcelProperty("用户名")
     private String userName;
     //用户密码
+    @ExcelIgnore
     private String password;
     //上一次登录时间
+    @ExcelIgnore
     private Date lastLoginTime;
     //账号是否可用默认为1（可用）
+    @ExcelIgnore
     private Boolean enabled=true;
     //创建时间
+    @ExcelIgnore
     private Date createTime;
     //创建人
+    @ExcelIgnore
     private String createUser;
     //修改人
+    @ExcelIgnore
     private String updateUser;
     //修改时间
+    @ExcelIgnore
     private Date updateTime;
     //邮箱
+    @ExcelIgnore
     private String mailbox;
     //手机号码
+    @ExcelIgnore
     private String userPhone;
     //头像地址
+    @ExcelIgnore
     private String userAvatar;
     //性别
+    @ExcelIgnore
     private String userSex;
 
     public String getUserId() {

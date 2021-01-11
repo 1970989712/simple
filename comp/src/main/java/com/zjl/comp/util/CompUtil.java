@@ -4,6 +4,9 @@ package com.zjl.comp.util;
 import com.zjl.comp.bean.IBomfBean;
 
 import javax.servlet.http.HttpServletRequest;
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -127,29 +130,28 @@ public class CompUtil {
     }
 
 
-    public static <T extends IBomfBean> List<Map> EntityConvertMap(List<T> list) {
-        List<Map> l = new LinkedList<>();
-        try {
-            for (T t : list) {
-                Map map = new HashMap<>();
-                Method[] methods = t.getClass().getMethods();
-                for (Method method : methods) {
-                    if (method.getName().startsWith("get")) {
-                        String name = method.getName().substring(3);
-                        name = name.substring(0, 1).toLowerCase() + name.substring(1);
-                        Object value = method.invoke(t);
-                        if (method.getGenericReturnType().toString().equals("class java.util.Date") && value != null) {
-                            value = DateUtil.format((Date) value);
-                        }
-                        map.put(name, value);
-                    }
-                }
-                l.add(map);
+    //把JavaBean转化为map
+    public static <T extends IBomfBean>List<Map> bean2map(List<T> beans) throws Exception{
+        List<Map> re = new ArrayList<>();
+        for(Object bean:beans){
+            Map<String,Object> map = new HashMap<>();
+            //获取JavaBean的描述器
+            BeanInfo b = Introspector.getBeanInfo(bean.getClass(),Object.class);
+            //获取属性描述器
+            PropertyDescriptor[] pds = b.getPropertyDescriptors();
+            //对属性迭代
+            for (PropertyDescriptor pd : pds) {
+                //属性名称
+                String propertyName = pd.getName();
+                //属性值,用getter方法获取
+                Method m = pd.getReadMethod();
+                Object properValue = m.invoke(bean);//用对象执行getter方法获得属性值
+                //把属性名-属性值 存到Map中
+                map.put(propertyName, properValue);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            re.add(map);
         }
-        return l;
+        return re;
     }
 
         /**
@@ -182,6 +184,8 @@ public class CompUtil {
         }
         return t;
     }
+
+
 
     /**
      * 判断是否为基本数据类型

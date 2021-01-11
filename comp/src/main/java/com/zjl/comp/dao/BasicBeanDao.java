@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.zjl.comp.anno.MapperXml;
 import com.zjl.comp.anno.Table;
 import com.zjl.comp.bean.IBomfBean;
+import com.zjl.comp.dao.util.BeanDaoHelper;
 import com.zjl.comp.exception.MyException;
 import com.zjl.comp.util.*;
 import org.apache.ibatis.mapping.ResultMap;
@@ -14,10 +15,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanMap;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.*;
@@ -47,7 +45,7 @@ public class BasicBeanDao<T extends IBomfBean> implements IBeanDao<T> {
 
     private String userId;
 
-    public  SqlSessionTemplate getSqlTemplate(){
+    public SqlSessionTemplate getSqlTemplate(){
         return sqlTemplate;
     }
 
@@ -59,7 +57,6 @@ public class BasicBeanDao<T extends IBomfBean> implements IBeanDao<T> {
             getbeananno(clazz);
         }
     }
-
 
     @Override
     public T queryById(String pk) throws Exception {
@@ -76,7 +73,12 @@ public class BasicBeanDao<T extends IBomfBean> implements IBeanDao<T> {
 
     @Override
     public List<T> querywhere(String statement,Map<String, Object> parameter) throws Exception {
-        return sqlTemplate.selectList(statement,parameter);
+        return sqlTemplate.selectList(namespace+statement,parameter);
+    }
+
+    @Override
+    public List<T> querywhere(String namespace,String statement,Map<String, Object> parameter) throws Exception {
+        return sqlTemplate.selectList(namespace+"."+statement,parameter);
     }
 
     @Override
@@ -186,8 +188,7 @@ public class BasicBeanDao<T extends IBomfBean> implements IBeanDao<T> {
     @Override
     public PageInfo<T> queryPage(String queryName,Integer pagenum,Integer pagesize,Map map) throws Exception {
         PageHelper.startPage(pagenum, pagesize);
-        List<T> tList  =  this.querywhere(namespace+queryName,map);
-        PageHelper.startPage(pagenum, pagesize);
+        List<T> tList  =  this.querywhere(queryName,map);
         PageInfo<T> pageInfo = new PageInfo<>(tList);
         return pageInfo;
     }

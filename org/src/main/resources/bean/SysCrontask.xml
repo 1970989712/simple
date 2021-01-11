@@ -16,7 +16,6 @@
         <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
     </resultMap>
 
-
     <sql id="Base_Column_List">    uuid, crontasknum, description, crontaskname, classname, taskplan, active, create_time, update_time, create_user,  update_user  </sql>
 
 

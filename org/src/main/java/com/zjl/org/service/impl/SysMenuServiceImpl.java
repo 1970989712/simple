@@ -5,7 +5,9 @@ import com.zjl.comp.service.BasicBeanService;
 import com.zjl.comp.util.SpringUtil;
 import com.zjl.comp.util.TreeJson;
 import com.zjl.org.bean.SysMenu;
+import com.zjl.org.bean.SysResourceAuthority;
 import com.zjl.org.service.SysMenuService;
+import com.zjl.org.service.SysResourceAuthorityService;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -51,11 +53,28 @@ public class SysMenuServiceImpl extends BasicBeanService<SysMenu> implements Sys
         }
 
         private List<SysMenu> getMenusbyUserId(String userId,String type) throws Exception {
-            SysMenuService menuService = SpringUtil.getBean(SysMenuService.class);
             Map mm = new HashMap();
             mm.put("userId",userId);
             mm.put("menuType",type);
-            List<SysMenu> menu  = menuService.queryWhere("queryMenuByUser",mm);
+            List<SysMenu> menu  = SpringUtil.getBean(SysMenuService.class).queryWhere("queryMenuByUser",mm);
             return menu;
+        }
+
+        //获得所有菜单及角色下菜单权限
+        @Override
+        public Map getAllMenu(String roleId) throws Exception {
+            Map remap = new HashMap();
+            List<SysMenu> allmenu = SpringUtil.getBean(SysMenuService.class).queryWhere(null); //所有
+            TreeJson tree = new TreeJson();
+            tree.setChildCode("menuId");
+            List<Map> treeData  = tree.getTreeDataByBean(allmenu,"0");
+            Map mm = new HashMap();
+            mm.put("roleId",roleId);
+            List<SysResourceAuthority> rolemenu = SpringUtil.getBean(SysResourceAuthorityService.class).queryWhere(mm);
+            List<String> checkedKeys = new ArrayList<>();
+            rolemenu.forEach(e->{checkedKeys.add(e.getResourceId());});
+            remap.put("treeData",treeData);
+            remap.put("checkedKeys",checkedKeys);
+            return remap;
         }
 }

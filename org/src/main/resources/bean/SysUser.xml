@@ -29,7 +29,11 @@
         from sys_user
         <where>
             <if test="userId !=null">and USER_ID=#{userId}</if>
-            <if test="account !=null">and account=#{account}</if>
+            <if test="account !=null">and account like CONCAT('%',#{account},'%')</if>
+            <if test="userName !=null">and user_name like CONCAT('%',#{userName},'%')</if>
+            <if test="userPhone !=null">and userPhone=#{userPhone}</if>
+            <if test="userEmail !=null">and mailbox=#{userEmail}</if>
+            <if test="createTime !=null">and create_time=#{createTime}</if>
             <if test="unitId !=null">and user_id in (select userId from sys_user_dept where deptId=#{unitId})</if>
         </where>
     </select>

@@ -1,0 +1,170 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.admin.css" />
+	
+</head>
+<style>
+	.token-kuang {
+		background-color: #F6F6F6;
+		height: 435px;
+		overflow: auto;
+	}
+
+	.token-ul li {
+		list-style-type: none;
+		width: 60px;
+	}
+
+	.touser li {
+		float: left;
+	}
+
+	.formuser li {
+		float: right;
+	}
+
+	.clear {
+		clear: both;
+	}
+
+	.token-ul .user-titel span {
+		display: block;
+		border: 1px solid;
+		width: 50px;
+		height: 50px;
+		border-radius: 100%;
+		line-height: 47px;
+		text-align: center;
+		color: #FFFFFF;
+		background-color: #3296FA;
+	}
+
+	.token-ul .user-titel {
+		padding: 10px
+	}
+
+	.token-ul .token-conment {
+		padding-top: 30px;
+	}
+
+	.formuser .token-conment {
+		padding-right: 550px;
+	}
+
+	.token-ul .token-conment span {
+		display: block;
+		width: 600px;
+		background-color: #FFFFFF;
+		border: 1px solid gainsboro !important;
+	}
+
+	.touser .token-conment span {
+		background-color: #FFFFFF
+	}
+
+	.formuser .token-conment span {
+		background-color: #C9E7FF;
+	}
+
+
+	.token-ul .token-conment span {
+		display: block;
+		width: 600px;
+		border: 1px solid;
+	}
+
+	.input-kuang .token-tool li {
+		list-style-type: none;
+		float: left;
+	}
+
+	#count {
+		border: none;
+		font-size: initial;
+		margin-left: 10px;
+		width: 1300px;
+		height: 120px;
+		resize: none;
+	}
+
+	.token-tishi {
+		padding-left: 1080px;
+		display: block;
+		padding-top: 8px;
+		font-size: 13px;
+		color: #FDFDFD;
+	}
+</style>
+
+<body>
+	<div id="vuebody">
+		<div id="usertokenbox" v-resize="redraw" class="token-kuang">
+			<!-- <div class="token-row">
+				<ul class="token-ul touser">
+					<li class="user-titel"><span>李磊</span></li>
+					<li class="token-conment">
+						<span>223232311111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+							1111111111111111111111111111111111111111111111111111111111111111111111
+						</span>
+					</li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+
+			<div class="token-row">
+				<ul class="token-ul formuser">
+					<li class="user-titel"><span>韩梅梅</span></li>
+
+					<li class="token-conment">
+						<span>223232311111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+							1111111111111111111111111111111111111111111111111111111111111111111111
+						</span>
+					</li>
+				</ul>
+				<div class="clear"></div>
+			</div> -->
+
+
+
+
+
+
+		</div>
+		<div class="input-kuang">
+			<div class="caidan">
+				<ul class="token-tool">
+					<li><a><img src="image\text.png"></a></li>
+					<li><a><img src="image\text.png"></a></li>
+					<li><a><img src="image\text.png"></a></li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+
+			<div class="token-input">
+				<textarea id="count" v-model="textContent" name="count"></textarea>
+			</div>
+
+			<div>
+				<a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:;"
+					onclick="sendMessage()" title="发送"><i class="Hui-iconfont">发送</i></a>
+					<span class="token-tishi">Enter发送,Ctrl+Enter换行</span>
+			</div>
+
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		
+	</script>
+</body>
+
+</html>
